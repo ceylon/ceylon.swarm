@@ -1,0 +1,137 @@
+<project name="Ceylon Swarm" default="install">
+
+    <property file="build.properties" />
+    <property name="ceylon.verbosity" value="false"/>
+    <property name="ceylon.executable" location="${dist.bin.dir}/ceylon"/>
+    <property name="out.repo" location="${basedir}/modules"/>
+    
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties">
+        <classpath>
+            <pathelement location="${ceylon.libs.dir}/ant-contrib-1.0b3.jar"/>
+        </classpath>
+    </taskdef>
+
+    
+    <!-- Local repository -->
+    <property name="ceylon.repo.dir" location="${user.home}/.ceylon/repo" />
+    
+    <path id="ant-tasks">
+        <pathelement location="${dist.libs.dir}/ceylon-ant.jar"/>
+    </path>
+    
+    <target name="ceylondefs" unless="ceylondefined">
+        <property name="ceylondefined" value="true" />
+        <typedef resource="com/redhat/ceylon/ant/antlib.xml" classpathref="ant-tasks"/>
+    
+        <reposet id="ceylon.repo">
+            <repo url="${ceylon.repo.dir}"/>
+        </reposet>
+
+        <moduleset id="modules.source">
+            <module name="ceylon.swarm"/>
+        </moduleset>
+    </target>
+    
+    <target name="clean"
+        description="Deletes the test-modules and modules directories">
+        <delete dir="${out.repo}"/>
+    </target>
+    
+    <target name="compile" depends="ceylondefs"
+            description="Compiles the Ceylon Swarm">
+        <ceylon-compile
+            verbose="${ceylon.verbosity}"
+            encoding="UTF-8"
+            pack200="true"
+            out="${out.repo}"
+            fork="true">
+            <reposet refid="ceylon.repo"/>
+            <moduleset refid="modules.source"/>
+        </ceylon-compile>
+    </target>
+
+    <target name="doc"  depends="ceylondefs"
+            description="Documents the Swarm module">
+        
+        <ceylon-doc
+            includesourcecode="true"
+            nomtimecheck="true"
+            encoding="UTF-8"
+            fork="true">
+            <moduleset refid="modules.source"/>
+            <linkset>
+                <link pattern="ceylon" url="https://modules.ceylon-lang.org/repo/1/"/>
+            </linkset>
+        </ceylon-doc>
+        
+    </target>
+
+    <target name="publish" depends="compile,scripts,publish-quick"
+        description="Copies the swarm modules to the user's repository"/>
+    <target name="publish-quick"
+        description="Compiles and copies the swarm modules to the user's repository">
+        <copy todir="${ceylon.repo.dir}" overwrite="true">
+            <fileset dir="${out.repo}">
+                <include name="ceylon/swarm/**"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="publish-herd" depends="ceylondefs">
+    <fail message="Please specify a target Herd upload repo url with -Dherd.repo=..." unless="herd.repo"/>
+    <fail message="Please specify a target Herd user name with -Dherd.user=..." unless="herd.user"/>
+    <fail message="Please specify a target Herd password with -Dherd.pass=..." unless="herd.pass"/>
+        
+        <ceylon-compile
+            verbose="${ceylon.verbosity}"
+            out="${herd.repo}"
+            user="${herd.user}"
+            pass="${herd.pass}"
+            encoding="UTF-8"
+            fork="true">
+            <moduleset refid="modules.source"/>
+        </ceylon-compile>
+        
+        <ceylon-doc
+            includesourcecode="true"
+            nomtimecheck="true"
+            out="${herd.repo}"
+            user="${herd.user}"
+            pass="${herd.pass}"
+            encoding="UTF-8"
+            fork="true">
+            <moduleset refid="modules.source"/>
+            <rep url="https://modules.ceylon-lang.org/repo/1/"/>
+            <linkset>
+                <link pattern="ceylon" url="https://modules.ceylon-lang.org/repo/1/"/>
+            </linkset>
+        </ceylon-doc>
+        
+        <ceylon-plugin mode="pack"
+            out="${herd.repo}"
+            user="${herd.user}"
+            pass="${herd.pass}"
+            fork="true">
+            <moduleset refid="modules.source"/>
+        </ceylon-plugin>
+
+    </target>
+
+    <target name="scripts" depends="ceylondefs">
+        <ceylon-plugin mode="pack"
+            out="${out.repo}"
+            fork="true">
+            <moduleset refid="modules.source"/>
+        </ceylon-plugin>
+    </target>
+
+    <target name="install" depends="publish">
+        <ceylon-plugin
+            mode="install" force="true"
+            out="${out.repo}"
+            fork="true">
+            <moduleset refid="modules.source"/>
+        </ceylon-plugin>
+    </target>
+
+</project>
