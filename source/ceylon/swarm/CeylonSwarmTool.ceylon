@@ -4,6 +4,7 @@ import com.redhat.ceylon.tools.war { CeylonWarTool }
 import org.wildfly.swarm.swarmtool { Main { main }}
 import java.lang { ObjectArray, JString = String }
 
+"The Ceylon Swarm tool"
 description("Generates a `.war` file and an executable WildFly Swarm `.jar` file
              which executes this jar in a minimal embedded WildFly runtime.
 
