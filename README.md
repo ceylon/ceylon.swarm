@@ -19,6 +19,12 @@ The buildfile assumes that `ceylon-dist` (including the Ceylon ant files) is a s
 Usage
 -----
 
+Inside this folder to install the plugin:
+
+```bash
+ceylon plugin install
+```
+
 Write your application for WildFly Swarm by importing the Java EE API module in your Ceylon `module.ceylon`:
 
 ```ceylon
