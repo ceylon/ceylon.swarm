@@ -15,11 +15,15 @@ Installation
 ------------
 
 To install the latest production release of the plugin on a machine
-which already has an installation of Ceylon 1.3.0 or above, just type:
+which already has Ceylon 1.3.0 or above installed, just type:
 
 ```bash
 ceylon install ceylon.swarm
 ```
+
+If you need to install Ceylon, you can get it here:
+
+<https://ceylon-lang.org/download/>
 
 Alternatively, you can build and install the plugin from source.
 
