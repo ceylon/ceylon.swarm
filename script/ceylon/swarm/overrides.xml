@@ -1,9 +1,0 @@
-<overrides>
- <remove groupId="org.wildfly.swarm" artifactId="fraction-list"/>
- <remove groupId="org.wildfly.swarm" artifactId="tools"/>
- <remove groupId="org.wildfly.swarm" artifactId="arquillian-resolver"/>
- <remove groupId="net.sf.jopt-simple" artifactId="jopt-simple"/>
- <artifact groupId="org.wildfly.swarm" artifactId="swarmtool">
-  <classifier>standalone</classifier>
- </artifact>
-</overrides>
