@@ -1,4 +1,4 @@
-"""Ceylon CLI plugin for WildFly Sarm.
+"""Ceylon CLI plugin for WildFly Swarm.
 
    # Usage
 
