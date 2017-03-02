@@ -10,7 +10,6 @@
     <property name="ceylon.verbosity" value="false"/>
     <property name="ceylon.executable" location="${ceylon.home}/bin/ceylon"/>
     <property name="out.repo" location="${basedir}/modules"/>
-    <property name="overrides" location="${basedir}/script/ceylon/swarm/overrides.xml"/>
     
     <taskdef resource="net/sf/antcontrib/antcontrib.properties">
         <classpath>
@@ -64,8 +63,7 @@
             includesourcecode="true"
             nomtimecheck="true"
             encoding="UTF-8"
-            fork="true"
-            overrides="${overrides}">
+            fork="true">
             <moduleset refid="modules.source"/>
             <linkset>
                 <link pattern="ceylon" url="https://modules.ceylon-lang.org/repo/1/"/>
@@ -107,7 +105,6 @@
             user="${herd.user}"
             pass="${herd.pass}"
             encoding="UTF-8"
-            overrides="${overrides}"
             fork="true">
             <moduleset refid="modules.source"/>
             <rep url="https://modules.ceylon-lang.org/repo/1/"/>
