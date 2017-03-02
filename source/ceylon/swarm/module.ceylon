@@ -5,7 +5,7 @@
    Install the plugin from the command-line:
 
    ~~~sh
-   $ ceylon plugin install ceylon.swarm/1.3.1
+   $ ceylon plugin install ceylon.swarm/1.3.2
    ~~~
 
    Write your application for WildFly Swarm by importing the Java EE API module in your Ceylon module.ceylon:
@@ -23,8 +23,8 @@
 """
 suppressWarnings("ceylonNamespace")
 native("jvm")
-module ceylon.swarm "1.3.1" {
+module ceylon.swarm "1.3.2" {
   import java.base "8";
-  import ceylon.interop.java "1.3.1";
-  shared import com.redhat.ceylon.compiler.java "1.3.1";
+  import ceylon.interop.java "1.3.2";
+  shared import com.redhat.ceylon.compiler.java "1.3.2";
 }
