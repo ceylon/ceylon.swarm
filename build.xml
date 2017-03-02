@@ -1,8 +1,14 @@
 <project name="Ceylon Swarm" default="install">
 
+    <property environment="env"/>
+    <condition property="ceylon.home" value="${env.CEYLON_HOME}" else="../ceylon/dist/dist">
+        <isset property="env.CEYLON_HOME" />
+    </condition>
+    <property name="ceylon.ant.lib" value="${ceylon.home}/lib/ceylon-ant.jar"/>
+
     <property file="build.properties" />
     <property name="ceylon.verbosity" value="false"/>
-    <property name="ceylon.executable" location="${dist.bin.dir}/ceylon"/>
+    <property name="ceylon.executable" location="${ceylon.home}/bin/ceylon"/>
     <property name="out.repo" location="${basedir}/modules"/>
     <property name="overrides" location="${basedir}/script/ceylon/swarm/overrides.xml"/>
     
@@ -17,7 +23,7 @@
     <property name="ceylon.repo.dir" location="${user.home}/.ceylon/repo" />
     
     <path id="ant-tasks">
-        <pathelement location="${dist.libs.dir}/ceylon-ant.jar"/>
+        <pathelement location="${ceylon.ant.lib}"/>
     </path>
     
     <target name="ceylondefs" unless="ceylondefined">
