@@ -27,4 +27,5 @@ module ceylon.swarm "1.3.2" {
   import java.base "8";
   import ceylon.interop.java "1.3.2";
   shared import com.redhat.ceylon.compiler.java "1.3.2";
+  shared import com.redhat.ceylon.tools "1.3.2";
 }
