@@ -18,7 +18,7 @@ To install the latest production release of the plugin on a machine
 which already has Ceylon 1.3.0 or above installed, just type:
 
 ```bash
-ceylon install ceylon.swarm
+ceylon plugin install ceylon.swarm
 ```
 
 If you need to install Ceylon, you can get it here:
