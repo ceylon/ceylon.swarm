@@ -46,15 +46,6 @@ description("Generates a `.war` file and an executable WildFly Swarm `.jar` file
              to generate the WildFly Swarm jar for you application.")
 shared class CeylonSwarmTool() extends CeylonWarTool() {
 
-  // different default
-  super.setStaticMetamodel(true);
-
-  option{ longName="static-metamodel"; }
-  description("Generate a static metamodel, skip the WarInitializer (default: true).")
-  shared actual void setStaticMetamodel(Boolean staticMetamodel) {
-      super.setStaticMetamodel(staticMetamodel);
-  }
-
   // Default is not 2016.11.0 since it's not yet on Maven Central (only JBoss repo)
   optionArgument__SETTER{ longName="swarm-version";  }
   description__SETTER("Sets the output directory for the WAR file (default: 2016.10.0).")
