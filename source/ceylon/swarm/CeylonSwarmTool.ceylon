@@ -1,11 +1,15 @@
+import ceylon.interop.java {
+    javaClass
+}
+
 import com.redhat.ceylon.cmr.api {
     ArtifactContext,
-    Overrides,
     ArtifactOverrides,
-    DependencyOverride { Type }
+    DependencyOverride {
+        Type
+    }
 }
 import com.redhat.ceylon.common.tool {
-    option,
     description,
     optionArgument__SETTER,
     description__SETTER
@@ -24,13 +28,10 @@ import java.lang {
 import java.util {
     ArrayList
 }
-import ceylon.interop.java {
-    javaClass
-}
 
 "The Ceylon Swarm tool"
 description("Generates a `.war` file and an executable WildFly Swarm `.jar` file
-             which executes this jar in a minimal embedded WildFly runtime.
+             which embeds a minimal embedded WildFly runtime.
 
              ## Java EE modules
 
@@ -48,8 +49,8 @@ shared class CeylonSwarmTool() extends CeylonWarTool() {
 
   // Default is not 2016.11.0 since it's not yet on Maven Central (only JBoss repo)
   optionArgument__SETTER{ longName="swarm-version";  }
-  description__SETTER("Sets the output directory for the WAR file (default: 2016.10.0).")
-  shared variable String swarmVersion = "2016.10.0";
+  description__SETTER("Specifies the version of org.wildfly.swarm:swarmtool (default: 2016.11.0).")
+  shared variable String swarmVersion = "2016.11.0";
 
   shared actual default void run(){
     super.run();

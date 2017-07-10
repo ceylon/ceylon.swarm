@@ -4,8 +4,8 @@ import com.redhat.ceylon.common.tool {
 
 "The Ceylon Swarm runner tool"
 description("Generates a `.war` file and an executable WildFly Swarm `.jar` file
-             which executes this jar in a minimal embedded WildFly runtime, and then
-             executes this `.jar` file.
+             which embeds a minimal embedded WildFly runtime, and then executes the
+             `.jar` file.
 
              ## Java EE modules
 
