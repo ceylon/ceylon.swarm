@@ -1,1 +1,4 @@
 modules
+/bin/
+/.exploded/
+/.ceylon/config~
