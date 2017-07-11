@@ -20,10 +20,11 @@ description("Generates a `.war` file and an executable WildFly Swarm `.jar` file
              module described above, you should use `--provided-module javax:javaee-api`
              to generate the WildFly Swarm jar for you application.")
 shared class CeylonRunSwarmTool() extends CeylonSwarmTool() {
-
-  shared actual void run(){
-    super.run();
-    value generatedJarFile = jarFile.absolutePath.substring(0, jarFile.absolutePath.size - 4) + "-swarm.jar";
-    executeJar(generatedJarFile);
-  }
+    
+    shared actual void run() {
+        super.run();
+        value path = jarFile.absolutePath;
+        executeJar(path[0:path.size-4] + "-swarm.jar");
+    }
+    
 }
