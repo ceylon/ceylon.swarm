@@ -1,8 +1,3 @@
-import ceylon.interop.java {
-    javaString,
-    javaClass
-}
-
 import com.redhat.ceylon.cmr.api {
     ArtifactContext,
     ArtifactOverrides,
@@ -21,6 +16,10 @@ import com.redhat.ceylon.tools.war {
 import java.lang {
     ProcessBuilder {
         Redirect
+    },
+    Types {
+        nativeString,
+        classForType
     }
 }
 import java.util {
@@ -71,10 +70,10 @@ shared class CeylonSwarmTool() extends CeylonWarTool() {
         // This is definitely fixed in 1.3.1
         //ao.classifier = "standalone";
         value field 
-            = javaClass<ArtifactOverrides>()
+            = classForType<ArtifactOverrides>()
                 .getDeclaredField("classifier");
         field.accessible = true;
-        field.set(overrides, javaString("standalone"));
+        field.set(overrides, nativeString("standalone"));
         
         // Stupid Maven doesn't know that standalone jars 
         // don't need their source project deps
@@ -112,7 +111,7 @@ shared class CeylonSwarmTool() extends CeylonWarTool() {
             = [javaHome + "/bin/java", "-jar", jar, *args];
         print(" ".join(command));
         value exit 
-            = ProcessBuilder(asList(*command.map(javaString)))
+            = ProcessBuilder(asList(*command.map(nativeString)))
                 .redirectError(Redirect.inherit)
                 .redirectOutput(Redirect.inherit)
                 .start()

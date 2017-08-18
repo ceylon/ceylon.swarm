@@ -24,8 +24,7 @@
 suppressWarnings("ceylonNamespace")
 native("jvm")
 module ceylon.swarm "1.3.3-SNAPSHOT" {
-  import java.base "8";
-  import ceylon.interop.java "1.3.3-SNAPSHOT";
-  shared import com.redhat.ceylon.compiler.java "1.3.3-SNAPSHOT";
-  shared import com.redhat.ceylon.tools "1.3.3-SNAPSHOT";
+    import java.base "8";
+    shared import com.redhat.ceylon.compiler.java "1.3.3-SNAPSHOT";
+    shared import com.redhat.ceylon.tools "1.3.3-SNAPSHOT";
 }
