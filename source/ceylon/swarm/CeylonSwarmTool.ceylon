@@ -42,18 +42,26 @@ description("Generates a `.war` file and an executable WildFly Swarm `.jar` file
              Make sure you use the `--provided-module` argument to mark every
              imported module which is provided by WildFly Swarm, such as any
              Java EE module. For example, if you imported the `javax:javaee-api/7.0
-             module described above, you should use `--provided-module javax:javaee-api`
+             module described above, you should use `--provided-module=javax:javaee-api`
              to generate the WildFly Swarm jar for you application.")
 shared class CeylonSwarmTool() extends CeylonWarTool() {
     
     value swarmTool = "org.wildfly.swarm:swarmtool";
     variable value swarmToolVersion = "2016.11.0";
+    variable value dependenciesList = "";
     
     shared String swarmVersion => swarmToolVersion;
     
-    optionArgument { longName="swarm-version"; }
+    optionArgument { longName="swarm-version"; argumentName="mavenVersion"; }
     description("Specifies the version of org.wildfly.swarm:swarmtool (default: 2016.11.0).")
     assign swarmVersion => swarmToolVersion = swarmVersion;
+    
+    
+    shared String dependencies => dependenciesList;
+    
+    optionArgument { longName="dependencies"; argumentName="mavenCoordinateList"; }
+    description("Specifies a comma-separated list of Maven coordinates or additional dependencies.")
+    assign dependencies => dependenciesList = dependencies;
     
     shared actual default void run() {
         super.run();
@@ -99,7 +107,9 @@ shared class CeylonSwarmTool() extends CeylonWarTool() {
         assert (exists artifact 
             = repositoryManager.getArtifact(artifactContext));
         // And just run it
-        executeJar(artifact.absolutePath, jarFile.absolutePath);
+        executeJar(artifact.absolutePath, jarFile.absolutePath, 
+            	   if (!dependencies.empty) 
+            	       "--dependencies=" + dependencies);
     }
     
     suppressWarnings("expressionTypeNothing")
